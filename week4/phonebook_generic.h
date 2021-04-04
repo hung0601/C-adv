@@ -1,20 +1,17 @@
-#ifndef __PHONEBOOK_H__
-#define __PHONEBOOK_H__
-#include "fields.h"
-typedef IS Entry;
+#ifndef __SYMBOLTABLE_H__
+#define __SYMBOLTABLE_H__
+#include "jrb.h"
+typedef JRB Entry;
 typedef struct {
-  Entry * entries;
-  int size, total;
-  Entry (*makeNode)(void*, void*);
-  int (*compare)(void*, void*);
+  void (*freeKeyValue)(Jval,Jval);
+  int (*compare)(Jval, Jval);
+  JRB tree;
 } SymbolTable;
-#define INITIAL_SIZE 10
-#define INCREMENTAL_SIZE 5
-Entry make_phonebook(void *key,void *value);
-int Compare_name(void* key1,void*key2);
-SymbolTable createSymbolTable(Entry (*makeNode)(void*, void*),
-                              int (*compare)(void*, void*));
-void dropSymbolTable(SymbolTable* tab);
-Entry* getEntry(void* key, SymbolTable *tab);
-void addEntry(void* key, void* value, SymbolTable* tab);
+void freeKeyValue(Jval k,Jval v);
+int compare(Jval k1,Jval k2);
+SymbolTable createSymbolTable(void (*freeKeyValue)(Jval,Jval),
+                              int (*compare)(Jval, Jval));
+void dropSymbolTable(SymbolTable* symtab);
+void addEntry(Jval key, Jval value, SymbolTable* symtab);
+Jval  getEntry(Jval key, SymbolTable tab);
 #endif
