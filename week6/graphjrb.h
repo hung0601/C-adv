@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "jrb.h"
 typedef JRB Graph;
 Graph createGraph();

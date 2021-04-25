@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "graph.h"
+#include "graphjrb.h"
 int main(){
   int i, n, output[100];
-  Graph g = createGraph(100);
+  Graph g = createGraph();
   addEdge(g,0,1);
   addEdge(g,0,2);
   addEdge(g,1,2);

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "graphjrb.h"
+#include "jrb.h"
 Graph createGraph(){
   Graph gr;
   gr=make_jrb();
@@ -30,18 +31,25 @@ void addEdge(Graph graph, int v1, int v2){
   }
 }
 int adjecent(Graph graph,int v1,int v2){
-  JRB node;
+  JRB node,node2;
   node=jrb_find_int(graph,v1);
   if(node==NULL) return 0;
-  else return jval_i(jrb_find_int((JRB)node->val,v2))->val);
+  else{
+    node2=jrb_find_int((JRB) jval_v(node->val),v2);
+    if(node2==NULL) return 0;
+    else return jval_i(node2->val);
+  }
 }
 int getAdjacentVertices(Graph graph,int vertex,int* output){
   int n=0,i;
-  JRB node,*ptr;
-  node=jrb_find_int(graph,v1);
+  JRB node,ptr,node2;
+  node=jrb_find_int(graph,vertex);
   if(node==NULL) return 0;
   else {
-    jrb_traverse(ptr,node->val) n++;
+    node2=(JRB) jval_v(node->val);
+    jrb_traverse(ptr,node2){
+     output[n++]=jval_i(ptr->key);
+    }
   }
   return n;
 }
