@@ -21,12 +21,8 @@ void addPhoneNumber(char * name, long number, PhoneBook* book) {
     strcpy(((book->entries)+book->total-1)->name,name);
   }
   else {
-    PhoneEntry * New;
     book->size=book->size+INCREMENTAL_SIZE;
-    New=(PhoneEntry*)malloc(sizeof(PhoneEntry)*book->size);
-    New=book->entries;
-    free(book->entries);
-    book->entries=New;
+    book->entries=(PhoneEntry*)realloc(book->entries,sizeof(PhoneEntry)*book->size);
     addPhoneNumber(name,number,book);
 }
   return;
